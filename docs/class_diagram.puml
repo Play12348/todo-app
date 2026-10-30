@@ -1,0 +1,42 @@
+@startuml
+class Task {
+  +title: str
+  +deadline: str
+  +done: bool
+  +mark_done()
+  +__str__(): str
+}
+
+class TaskManager {
+  -tasks: list
+  +add_task(task: Task)
+  +remove_task(title: str)
+  +get_all(): list
+}
+
+class TaskStorage {
+  -filename: str
+  +load(): list
+  +save(tasks: list)
+}
+
+class ConsoleUI {
+  -manager: TaskManager
+  +run()
+  +print_menu()
+}
+
+ConsoleUI --> TaskManager
+TaskManager o-- Task
+TaskManager ..> TaskStorage
+class Storage {
+  +load()
+  +save()
+}
+class FileStorage {
+}
+class MemoryStorage {
+}
+FileStorage --|> Storage
+MemoryStorage --|> Storage
+@enduml 
